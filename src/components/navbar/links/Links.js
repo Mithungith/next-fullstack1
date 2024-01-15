@@ -3,6 +3,7 @@ import Link from "next/link";
 import style from "./links.module.css";
 import Navlinks from "./navLinks/Navlinks";
 import { useState } from "react";
+import Image from "next/image";
 
 function Links() {
   const [open, setOpen] = useState(false);
@@ -44,15 +45,22 @@ function Links() {
         )}
       </div>
       <div>
-        <button className={style.menuButton} onClick={()=>setOpen((prev) => !prev)}>Menu</button>
-        {
-        open &&
-        <div className={style.mobileLinks}>
-          {links.map((item) => {
-            return <Navlinks item={item} key={item.title} />;
-          })}
-        </div>
-        }
+        {/* <button className={style.menuButton} onClick={()=>setOpen((prev) => !prev)}>Menu</button> */}
+        <Image
+            src="/menu.png"
+            alt="img"
+            width={30}
+            height={30}
+            className={style.menuButton}
+            onClick={() => setOpen((prev) => !prev)}
+          />
+        {open && (
+          <div className={style.mobileLinks}>
+            {links.map((item) => {
+              return <Navlinks item={item} key={item.title} />;
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
