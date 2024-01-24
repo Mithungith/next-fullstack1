@@ -14,6 +14,11 @@ import { getPosts } from "../../../lib/data";
 
 //Fetch Data without An API
 
+export const metadata={
+  title:"Blog Page",
+  description:"blog page description",
+}
+
 async function BlogPage() {
   const posts = await getPosts();
 

@@ -3,6 +3,18 @@ import Image from "next/image";
 import PostUser from "@/components/postUser/postUser";
 import { getPost } from "../../../../lib/data";
 import { Suspense } from "react";
+
+export const generateMetadata = async ({params}) =>{
+  const {slug} = params;
+
+  const post =await getPost(slug);
+  return {
+    title:post.title,
+    description:post.desc,
+  };
+}
+
+
 async function SinglePost({params,searchParams}) {
   const {slug} = params;
   //Fetch data through API
@@ -16,42 +28,40 @@ async function SinglePost({params,searchParams}) {
 
   //Fetch Data without an API
   const post =await getPost(slug);
-  console.log(post);
+  console.log(post,"New post",slug);
+  console.log(post.userId,post.slug,post.title,post.createdAt,post.desc,"hey-hey");
+
   return (
     <div className={style.container}>
-      <div className={style.imgContainer}>
+      {post.img && 
+        <div className={style.imgContainer}>
         <Image
-          src="https://images.pexels.com/photos/18796586/pexels-photo-18796586/free-photo-of-trees.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={post.img}
           alt="img"
           fill
           className={style.img}
         />
       </div>
+      }
       <div className={style.textContainer}>
         <h2 className={style.title}>{post.title}</h2>
         <div className={style.detail}>
-          <Image
-            className={style.avatar}
-            src="https://images.pexels.com/photos/762080/pexels-photo-762080.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="img"
-            width={50}
-            height={50}
-          />
           
+          {post && 
           <Suspense fallback={<div>Loading...</div>}>
-              <PostUser userId={post.id}/>
-          </Suspense>
+              <PostUser userId={post.userId}/>
+          </Suspense>}
           <div className={style.detailText}>
             <span className={style.detailTitle}>
                 Published
             </span>
             <span className={style.detailValue}>
-                01.01.2024
+                {post.createdAt.toString().slice(4,16)}
             </span>
           </div>
         </div>
         <div className={style.content}>
-            {post.body}
+            {post.desc}
         </div>
       </div>
     </div>
