@@ -4,8 +4,9 @@ import style from "./links.module.css";
 import Navlinks from "./navLinks/Navlinks";
 import { useState } from "react";
 import Image from "next/image";
+import { handleLogout } from "../../../../lib/action";
 
-function Links() {
+function Links({session}) {
   const [open, setOpen] = useState(false);
   const links = [
     {
@@ -26,7 +27,7 @@ function Links() {
     },
   ];
 
-  const session = true;
+  // const session = true;
   const isAdmin = true;
   return (
     <div>
@@ -35,10 +36,12 @@ function Links() {
           return <Navlinks item={item} key={item.title} />;
         })}
 
-        {session ? (
+        {session?.user ? (
           <>
-            {isAdmin && <Navlinks item={{ title: "Admin", path: "/admin" }} />}
+            {session.user?.isAdmin && <Navlinks item={{ title: "Admin", path: "/admin" }} />}
+            <form action={handleLogout}>
             <button className={style.logout}>Logout</button>
+            </form>
           </>
         ) : (
           <Navlinks item={{ title: "Login", path: "/login" }} />

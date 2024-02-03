@@ -18,18 +18,19 @@ export const generateMetadata = async ({params}) =>{
 async function SinglePost({params,searchParams}) {
   const {slug} = params;
   //Fetch data through API
-  // const getData = async function(){
-  // const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
+  const getData = async function(){
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
+  //const res = await fetch(`http://localhost:3000/api/blog/${slug}`,{method:"DELETE"}); for deleting the post
 
-  // return res.json();
-  // }
+  return res.json();
+  }
 
-  // const post = await getData(slug);
+  const post = await getData(slug);
 
   //Fetch Data without an API
-  const post =await getPost(slug);
-  console.log(post,"New post",slug);
-  console.log(post.userId,post.slug,post.title,post.createdAt,post.desc,"hey-hey");
+  //const post =await getPost(slug);
+  //console.log(post,"New post",slug);
+  //console.log(post.userId,post.slug,post.title,post.createdAt,post.desc,"hey-hey");
 
   return (
     <div className={style.container}>

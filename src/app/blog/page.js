@@ -3,15 +3,15 @@ import style from "./blog.module.css";
 import { getPosts } from "../../../lib/data";
 
 //  Fetch data through API
-// const getData = async () => {
-//   const data = await fetch("https://jsonplaceholder.typicode.com/posts");
-//   if (!data.ok) {
-//     throw Error("Somthing Went Wrong");
-//   }
-//   return data.json();
-// };
+const getData = async () => {
+  const data = await fetch("http://localhost:3000/api/blog",{next:{revalidate:3600}});
+  if (!data.ok) {
+    throw Error("Somthing Went Wrong");
+  }
+  return data.json();
+};
 
-
+const posts = await getData();
 //Fetch Data without An API
 
 export const metadata={
@@ -20,7 +20,7 @@ export const metadata={
 }
 
 async function BlogPage() {
-  const posts = await getPosts();
+  //const posts = await getPosts();
 
   return (
     <div className={style.container}>
