@@ -1,33 +1,31 @@
 import { NextResponse } from "next/server";
-import { Post } from "../../../../../lib/models";
-import { connectToDb } from "../../../../../lib/utils";
+import { Post } from "../../../../lib/models";
+import { connectToDb } from "../../../../lib/utils";
 
-export const GET = async (request,{params})=>{
+export const GET = async (request, { params }) => {
+  const { slug } = params;
 
-    const {slug} = params;
+  try {
+    connectToDb();
 
-    try{
-        connectToDb();
-
-        const post = await Post.findOne({slug});
-        return NextResponse.json(post);
-    }catch(err){
-        console.log(err);
-        throw new Error("Failed to fetch posts");
-    }
+    const post = await Post.findOne({ slug });
+    return NextResponse.json(post);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts");
+  }
 };
 
-export const DELETE = async (request,{params})=>{
+export const DELETE = async (request, { params }) => {
+  const { slug } = params;
 
-    const {slug} = params;
+  try {
+    connectToDb();
 
-    try{
-        connectToDb();
-
-        await Post.deleteOne({slug});
-        return NextResponse.json("Post Deleted");
-    }catch(err){
-        console.log(err);
-        throw new Error("Failed to fetch posts");
-    }
+    await Post.deleteOne({ slug });
+    return NextResponse.json("Post Deleted");
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch posts");
+  }
 };

@@ -1,10 +1,12 @@
 import PostCard from "@/components/postCard/PostCard";
 import style from "./blog.module.css";
-import { getPosts } from "../../../lib/data";
+import { getPosts } from "../../lib/data";
 
 //  Fetch data through API
 const getData = async () => {
-  const data = await fetch("http://localhost:3000/api/blog",{next:{revalidate:3600}});
+  const data = await fetch("http://localhost:3000/api/blog", {
+    next: { revalidate: 3600 },
+  });
   if (!data.ok) {
     throw Error("Somthing Went Wrong");
   }
@@ -14,10 +16,10 @@ const getData = async () => {
 const posts = await getData();
 //Fetch Data without An API
 
-export const metadata={
-  title:"Blog Page",
-  description:"blog page description",
-}
+export const metadata = {
+  title: "Blog Page",
+  description: "blog page description",
+};
 
 async function BlogPage() {
   //const posts = await getPosts();
@@ -39,7 +41,7 @@ async function BlogPage() {
       {posts.map((post) => {
         return (
           <div className={style.post} key={post.id}>
-            <PostCard post = {post}/>
+            <PostCard post={post} />
           </div>
         );
       })}

@@ -1,4 +1,4 @@
-import { handleGithubLogin } from "../../../../lib/action";
+import { handleGithubLogin } from "../../../lib/action";
 import LoginForm from "@/components/loginForm/loginForm";
 import style from "./login.module.css";
 function LoginPage() {

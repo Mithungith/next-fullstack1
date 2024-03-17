@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getUser } from "../../../lib/data";
+import { getUser } from "../../lib/data";
 import style from "./postUser.module.css";
 
 //Fetch Data with API
@@ -15,7 +15,7 @@ async function PostUser({ userId }) {
 
   //Fetch data without an api
   const user = await getUser(userId);
-  console.log(userId, "mit");
+  //console.log(userId, "mit");
   return (
     <div className={style.container}>
       <Image

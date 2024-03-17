@@ -4,9 +4,9 @@ import style from "./links.module.css";
 import Navlinks from "./navLinks/Navlinks";
 import { useState } from "react";
 import Image from "next/image";
-import { handleLogout } from "../../../../lib/action";
+import { handleLogout } from "../../../lib/action";
 
-function Links({session}) {
+function Links({ session }) {
   const [open, setOpen] = useState(false);
   const links = [
     {
@@ -38,9 +38,11 @@ function Links({session}) {
 
         {session?.user ? (
           <>
-            {session.user?.isAdmin && <Navlinks item={{ title: "Admin", path: "/admin" }} />}
+            {session.user?.isAdmin && (
+              <Navlinks item={{ title: "Admin", path: "/admin" }} />
+            )}
             <form action={handleLogout}>
-            <button className={style.logout}>Logout</button>
+              <button className={style.logout}>Logout</button>
             </form>
           </>
         ) : (
@@ -50,13 +52,13 @@ function Links({session}) {
       <div>
         {/* <button className={style.menuButton} onClick={()=>setOpen((prev) => !prev)}>Menu</button> */}
         <Image
-            src="/menu.png"
-            alt="img"
-            width={30}
-            height={30}
-            className={style.menuButton}
-            onClick={() => setOpen((prev) => !prev)}
-          />
+          src="/menu.png"
+          alt="img"
+          width={30}
+          height={30}
+          className={style.menuButton}
+          onClick={() => setOpen((prev) => !prev)}
+        />
         {open && (
           <div className={style.mobileLinks}>
             {links.map((item) => {
