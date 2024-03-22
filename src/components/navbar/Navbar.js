@@ -10,7 +10,7 @@ async function Navbar() {
   return (
     <div className={style.container}>
       <Link className={style.logo} href="/">
-        Logo
+        DIGITECH
       </Link>
       <div>
         <Links session={session} />
